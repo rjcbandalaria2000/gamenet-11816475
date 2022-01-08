@@ -13,6 +13,11 @@ public class LauncherManager : MonoBehaviourPunCallbacks
     GameObject connectionStatusPanel;
     [SerializeField]
     GameObject lobbyPanel;
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true; // every client or player will load the scene the master client has loaded 
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +85,7 @@ public class LauncherManager : MonoBehaviourPunCallbacks
     {
         //Called when player has entered a room 
         Debug.Log(PhotonNetwork.NickName + " has entered " + PhotonNetwork.CurrentRoom.Name);
+        PhotonNetwork.LoadLevel(1); // Loading level "GameScene" 
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
