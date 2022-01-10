@@ -6,10 +6,24 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PhotonNetwork.IsConnected)
+        {
+            if(playerPrefab != null)
+            {
+                int xPosRandom = Random.Range(-20, 20);
+                int zPosRandom = Random.Range(-20, 20);
+                PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xPosRandom,0, zPosRandom), Quaternion.identity); // Use photon instatiate for server level spawning
+            }
+            else
+            {
+                Debug.LogWarning("Player Prefab is null");
+            }
+        }
     }
 
     // Update is called once per frame
