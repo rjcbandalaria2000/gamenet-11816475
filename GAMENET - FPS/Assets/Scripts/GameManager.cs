@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    public static GameManager instance;
     [SerializeField]
     GameObject playerPrefab;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -39,5 +52,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log(newPlayer.NickName + " has joined the room " + PhotonNetwork.CurrentRoom.Name);
         Debug.Log("Room has now " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene(0);
     }
 }
