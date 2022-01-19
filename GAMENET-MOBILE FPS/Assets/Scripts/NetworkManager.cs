@@ -40,13 +40,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private Dictionary<string, RoomInfo> cachedRoomList; // Dictionary accepts 2 objects, <key, value>
     //Each element in the dictionary will be stored with a string (the room name), value will be the roomInfo object
-
+    private Dictionary<string, GameObject> roomListGameObjects;
     #region Unity Functions
     // Start is called before the first frame update
     void Start()
     { 
         ActivatePanel(loginUIPanel);    
-        cachedRoomList = new Dictionary<string, RoomInfo>();    
+        cachedRoomList = new Dictionary<string, RoomInfo>();   
+        roomListGameObjects = new Dictionary<string, GameObject>(); 
     }
 
     // Update is called once per frame
@@ -98,6 +99,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ActivatePanel(gameOptionsPanel);
     }
 
+    public void OnBackButtonClicked()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        ActivatePanel(gameOptionsPanel);
+    }
+
     public void OnShowRoomButtonClicked()
     {
         if(!PhotonNetwork.InLobby) // checks if the player is in a lobby or not
@@ -134,6 +144,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) // called when a room listing is updated inside the lobby and return a list of all the room info in the lobby
     {
+        ClearRoomListGameObjects(); //clears any existing room list game objects to avoid duplicates
         foreach(RoomInfo info in roomList)
         {
             Debug.Log("Room Name: " + info.Name);
@@ -154,7 +165,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 }
                 else 
                 {
-                    cachedRoomList.Add(info.Name, info);
+                    cachedRoomList.Add(info.Name, info); //cache the room list info
                 }
                 
             }
@@ -163,7 +174,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             GameObject listItem = Instantiate(roomItemPrefab);
             listItem.transform.SetParent(roomListParent.transform);
-            listItem.transform.localScale = Vector3.one; // to avoid scaling issues \
+            listItem.transform.localScale = Vector3.one; // to avoid scaling issues 
 
             listItem.transform.Find("RoomNameText").GetComponent<Text>().text = info.Name;
             listItem.transform.Find("RoomPlayersText").GetComponent<Text>().text = "Player Count: " + info.PlayerCount 
@@ -171,8 +182,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             listItem.transform.Find("JoinRoomButton").GetComponent<Button>().onClick.AddListener(() => OnJoinRoomClicked(info.Name));// adding an onclick listener programmatically 
             //Remember to remove the onclick listener on the inspector  
+            roomListGameObjects.Add(info.Name, listItem); // cache the room list game objects 
         }
     }
+
+    public override void OnLeftLobby()
+    {
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " left the lobby");
+        ClearRoomListGameObjects();
+    }
+
     #endregion
 
     #region Private Methods
@@ -184,6 +203,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveLobby(); 
         }
         PhotonNetwork.JoinRoom(roomName);
+    }
+
+    private void ClearRoomListGameObjects()
+    {
+        foreach(var item in roomListGameObjects.Values)
+        {
+            Destroy(item);
+        }
+        roomListGameObjects.Clear();
     }
 
     #endregion
