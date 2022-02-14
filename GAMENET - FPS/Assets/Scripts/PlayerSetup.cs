@@ -13,6 +13,9 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        //Add Photon view component as an identifier if the Player spawned is yours 
+        //Add to Photon view the Player's transform to update it on the server under Observed Components (switch Observable Search to "Manual")
+        // For perfomance reasons, Photon will automatically add Photon transform view to the player then add it under Observed Components. 
         if (photonView.IsMine) //if the photon view is the player, disable control movement in other spawned players 
         {
             transform.GetComponent<MovementController>().enabled = true;

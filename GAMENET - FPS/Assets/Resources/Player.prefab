@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lookSensitivity: 3
+  lookSensitivity: 4
   fpsCamera: {fileID: 8660464379940979754}
 --- !u!114 &4109780317294647731
 MonoBehaviour:

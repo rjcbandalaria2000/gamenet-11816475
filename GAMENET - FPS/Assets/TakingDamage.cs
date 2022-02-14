@@ -20,7 +20,7 @@ public class TakingDamage : MonoBehaviourPunCallbacks
         healthBar.fillAmount = currentHP / maxHP;
     }
 
-    [PunRPC]
+    [PunRPC] // Add if need to broadcast to every player on the server 
     public void TakeDamage(int damage)
     {
         currentHP -= damage;

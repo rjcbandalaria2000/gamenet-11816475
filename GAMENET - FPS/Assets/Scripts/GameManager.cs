@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 int xPosRandom = Random.Range(-20, 20);
                 int zPosRandom = Random.Range(-20, 20);
-                PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xPosRandom,0, zPosRandom), Quaternion.identity); // Use photon instatiate for server level spawning
+                PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xPosRandom,0, zPosRandom), Quaternion.identity); // Use photon instatiate for server level spawning. Put in "Resources" folder for Photon to access it
             }
             else
             {
@@ -56,11 +56,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
+        //Leaves the current room the player is in 
         PhotonNetwork.LeaveRoom();
     }
 
     public override void OnLeftRoom()
     {
+        //Called when the player leaves the room 
         SceneManager.LoadScene(0);
     }
 }

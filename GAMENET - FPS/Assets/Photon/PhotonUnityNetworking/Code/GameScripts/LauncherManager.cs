@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
+using Photon.Realtime; // Handles the room and lobbies from in Proton (creating rooms) 
 using UnityEngine.Assertions;
 
 public class LauncherManager : MonoBehaviourPunCallbacks
@@ -67,6 +67,8 @@ public class LauncherManager : MonoBehaviourPunCallbacks
 
         }
     }
+
+    // Rooms are organized in lobbies 
     public void JoinRandomRoom() 
     {
         PhotonNetwork.JoinRandomRoom(); //Used to join random rooms in Photon
