@@ -28,8 +28,12 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             Assert.IsNotNull(PlayerUIPrefab, "PlayerUIPrefab not set or is null");
             GameObject PlayerUI = Instantiate(PlayerUIPrefab);
             Assert.IsNotNull(MovementController, "PlayerMovementController not set or is null");
-            MovementController.FixedTouchField = PlayerUI.transform.Find("RotationTouchField").GetComponent<FixedTouchField>();
+            MovementController.FixedTouchField = PlayerUI.transform.Find("RotationTouchField ").GetComponent<FixedTouchField>();
+            MovementController.FixedTouchField = PlayerUI.transform.Find("RotationTouchField ").GetComponent<FixedTouchField>();
+            Assert.IsNotNull(MovementController.FixedTouchField, "No Fixed Touch Field Found");
             MovementController.Joystick = PlayerUI.transform.Find("Fixed Joystick").GetComponent<FixedJoystick>();
+            Assert.IsNotNull(MovementController.Joystick, "No Joystick Found");
+
             Assert.IsNotNull(FPSCamera, "No Camera detected in the Player");
             FPSCamera.enabled = true;
         }
