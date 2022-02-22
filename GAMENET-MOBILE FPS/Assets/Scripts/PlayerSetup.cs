@@ -11,6 +11,11 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     public GameObject PlayerUIPrefab;
     public PlayerMovementController MovementController;
     public Camera FPSCamera;
+    public Avatar NonFPSAvatar;
+    public Avatar FPSAvatar; 
+
+    private Animator Animator;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,13 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         Assert.IsNotNull(NonFPSModel, "No NonFPSModel set or is null");
         //Enable the non FPS model if the photon view is not the player 
         NonFPSModel.SetActive(!photonView.IsMine);
+        Animator = this.GetComponent<Animator>();
+        Assert.IsNotNull(Animator, "No Animator set or is null");
+        Animator.SetBool("IsLocalPlayer", photonView.IsMine);
+
+        Animator.avatar = photonView.IsMine ? FPSAvatar : NonFPSAvatar;
+        //Set FPSAvatar if the photonView is the player : Set NonFPSAvatar if not the player 
+       
         
         if (photonView.IsMine)
         {   // If the Photon View is the player, spawn in the PlayerUI (Joysticks), enable movement and camera 
