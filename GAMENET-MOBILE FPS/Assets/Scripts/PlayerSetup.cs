@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Assertions;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.UI;
 public class PlayerSetup : MonoBehaviourPunCallbacks
 {
     public GameObject FPSModel;
@@ -15,7 +16,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     public Avatar FPSAvatar; 
 
     private Animator Animator;
-   
+    private Shooting shooting;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,8 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
 
         Animator.avatar = photonView.IsMine ? FPSAvatar : NonFPSAvatar;
         //Set FPSAvatar if the photonView is the player : Set NonFPSAvatar if not the player 
-       
+        
+        shooting = this.GetComponent<Shooting>();
         
         if (photonView.IsMine)
         {   // If the Photon View is the player, spawn in the PlayerUI (Joysticks), enable movement and camera 
@@ -48,6 +50,8 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
 
             Assert.IsNotNull(FPSCamera, "No Camera detected in the Player");
             FPSCamera.enabled = true;
+
+            PlayerUI.transform.Find("FireButton").GetComponent<Button>().onClick.AddListener(() => shooting.Fire());
         }
         else
         {
