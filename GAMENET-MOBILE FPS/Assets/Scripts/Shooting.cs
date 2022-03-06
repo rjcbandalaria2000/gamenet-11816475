@@ -94,9 +94,9 @@ public class Shooting : MonoBehaviourPunCallbacks
         }
         animator.SetBool("IsDead", false);
         RespawnText.GetComponent<TextMeshProUGUI>().text = "";
-        int randomPointX = Random.Range(-20, 20);
-        int randomPointZ = Random.Range(-20, 20);
-        this.transform.position = new Vector3(randomPointX, 0, randomPointZ);
+        //int randomPointX = Random.Range(-20, 20);
+        //int randomPointZ = Random.Range(-20, 20);
+        this.transform.position = SpawnManager.Instance.GetRandomSpawnPoint().position;//new Vector3(randomPointX, 0, randomPointZ);
         Debug.Log("Respawn");
         this.transform.GetComponent<PlayerMovementController>().enabled = true;
         photonView.RPC("RegainHealth", RpcTarget.AllBuffered);

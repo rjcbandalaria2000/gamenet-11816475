@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            int RandomXPos = Random.Range(-10, 10);
-            int RandomZPos = Random.Range(-10, 10);
-            Vector3 spawnPoint = new Vector3(RandomXPos, 0, RandomZPos);
-            PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(RandomXPos, 0, RandomZPos), Quaternion.identity);
+            //int RandomXPos = Random.Range(-10, 10);
+            //int RandomZPos = Random.Range(-10, 10);
+            //Vector3 spawnPoint = new Vector3(RandomXPos, 0, RandomZPos);
+            PhotonNetwork.Instantiate(PlayerPrefab.name, SpawnManager.Instance.GetRandomSpawnPoint().position, Quaternion.identity);
         } 
     }
 
