@@ -5,15 +5,19 @@ using Photon.Pun;
 using UnityEngine.Assertions;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.UI;
+using TMPro;
+
 public class PlayerSetup : MonoBehaviourPunCallbacks
 {
     public GameObject FPSModel;
     public GameObject NonFPSModel;
     public GameObject PlayerUIPrefab;
+    public TextMeshProUGUI PlayerNameUI;
     public PlayerMovementController MovementController;
     public Camera FPSCamera;
     public Avatar NonFPSAvatar;
     public Avatar FPSAvatar; 
+   
 
     private Animator Animator;
     private Shooting shooting;
@@ -36,6 +40,9 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         //Set FPSAvatar if the photonView is the player : Set NonFPSAvatar if not the player 
         
         shooting = this.GetComponent<Shooting>();
+
+        Assert.IsNotNull(PlayerNameUI, "Player Name UI is null");
+        PlayerNameUI.text = photonView.Owner.NickName;
         
         if (photonView.IsMine)
         {   // If the Photon View is the player, spawn in the PlayerUI (Joysticks), enable movement and camera 
