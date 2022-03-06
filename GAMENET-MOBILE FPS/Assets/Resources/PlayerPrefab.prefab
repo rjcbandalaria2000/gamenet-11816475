@@ -4110,6 +4110,7 @@ MonoBehaviour:
   range: 200
   damage: 25
   RespawnText: {fileID: 0}
+  KillNotificationPrefab: {fileID: 2109818579228600533, guid: 35befdb5ee801e84ea6012392112bf27, type: 3}
   StartHealth: 100
   HealthBar: {fileID: 1866605413433206946}
 --- !u!1 &4405167645359303399
@@ -4274,7 +4275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Test Bane '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
