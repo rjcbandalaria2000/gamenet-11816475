@@ -4111,6 +4111,7 @@ MonoBehaviour:
   damage: 25
   RespawnText: {fileID: 0}
   KillNotificationPrefab: {fileID: 2109818579228600533, guid: 35befdb5ee801e84ea6012392112bf27, type: 3}
+  PlayerKills: 0
   StartHealth: 100
   HealthBar: {fileID: 1866605413433206946}
 --- !u!1 &4405167645359303399
