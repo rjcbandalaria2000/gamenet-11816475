@@ -15,6 +15,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     public Coroutine RespawnCoroutine;
     public GameObject RespawnText;
     public GameObject KillNotificationPrefab;
+    //public GameObject KillFeedUI;
 
     [Header("HP Related")]
     public float StartHealth = 100;
@@ -30,6 +31,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         HealthBar.fillAmount = health / StartHealth;
         animator = this.GetComponent<Animator>();
         RespawnText = GameObject.Find("Respawn Text");
+        //KillFeedUI = this.GetComponent<PlayerSetup>().PlayerUIPrefab.transform.Find("KillFeedPanel").gameObject;
     }
 
     // Update is called once per frame
@@ -62,15 +64,17 @@ public class Shooting : MonoBehaviourPunCallbacks
             Die();
             Debug.Log(info.Sender.NickName + " killed " + info.photonView.Owner.NickName); // Sender is the one calling the RPC (the one inflicting the damage)
             // Owner is the one killed  
-            GameObject killFeedUI = this.gameObject.GetComponent<PlayerSetup>().PlayerUIPrefab.transform.Find("KillFeedPanel").gameObject;
-            if (killFeedUI)
-            {
+            
+            //if (KillFeedUI)
+            //{
                 GameObject killNotification = Instantiate(KillNotificationPrefab);//PhotonNetwork.Instantiate(KillNotificationPrefab.name, killFeedUI.transform.position, Quaternion.identity);
-                killNotification.transform.SetParent(killFeedUI.transform);
+                //killNotification.transform.SetParent(killFeedUI.transform);
+                killNotification.transform.SetParent(UIManager.Instance.KillFeedUI.transform);
+                killNotification.transform.localScale = Vector3.one; 
                 killNotification.transform.Find("KillerText").gameObject.GetComponent<TextMeshProUGUI>().text = info.Sender.NickName;
                 killNotification.transform.Find("KilledText").gameObject.GetComponent<TextMeshProUGUI>().text = info.photonView.Owner.NickName;
                 Destroy(killNotification, 3.0f);
-            }
+            //}
             
         }
     }
@@ -118,5 +122,10 @@ public class Shooting : MonoBehaviourPunCallbacks
     {
         health = StartHealth;
         HealthBar.fillAmount = health / StartHealth;
+    }
+
+    IEnumerator DisplayKillFeed(PhotonMessageInfo info)
+    {
+        yield return null; 
     }
 }
