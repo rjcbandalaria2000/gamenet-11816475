@@ -16,6 +16,8 @@ public class Shooting : MonoBehaviourPunCallbacks
     public GameObject RespawnText;
     public GameObject KillNotificationPrefab;
     public int PlayerKills = 0;
+    public Shooting Attacker;
+    public TextMeshProUGUI KillCounterUI;
 
     [Header("HP Related")]
     public float StartHealth = 100;
@@ -31,7 +33,8 @@ public class Shooting : MonoBehaviourPunCallbacks
         HealthBar.fillAmount = health / StartHealth;
         animator = this.GetComponent<Animator>();
         RespawnText = GameObject.Find("Respawn Text");
-       
+        KillCounterUI = GameObject.Find("KillCounterText").GetComponent<TextMeshProUGUI>(); 
+        //KillCounterUI = this.gameObject.GetComponent<PlayerSetup>().PlayerUIPrefab.transform.Find("KillCounterText").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -50,18 +53,34 @@ public class Shooting : MonoBehaviourPunCallbacks
             photonView.RPC("CreateHitEffects", RpcTarget.All, hit.point); // only use RPCTarget.All because entering players dont need to see the created hit effects
             if (hit.collider.CompareTag("Player") && !hit.collider.gameObject.GetComponent<PhotonView>().IsMine)
             {
-                hit.collider.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.AllBuffered, 25, this.gameObject);
+                
+                
+                hit.collider.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.AllBuffered, 25);
+                Shooting hitShooting = hit.collider.gameObject.GetComponent<Shooting>();
+                if (hitShooting)
+                {
+                    if(hitShooting.health <= 0)
+                    {
+                       
+                        PlayerKills++; 
+                        KillCounterUI.text = PlayerKills.ToString();
+                        Debug.Log("Current Kills: " + PlayerKills);
+                    }
+                    
+                }
             }
         }
     }
     [PunRPC]
-    public void TakeDamage(int damage, GameObject source, PhotonMessageInfo info) // PhotonMessageInfo 
+    public void TakeDamage(int damage ,PhotonMessageInfo info) // PhotonMessageInfo 
     {
         this.health -= damage;
         this.HealthBar.fillAmount = health/StartHealth;
         if(health <= 0)
         {
-            source.GetComponent<Shooting>().PlayerKills++;
+            //Attacker.GetComponent<Shooting>().PlayerKills ++;
+            //Debug.Log("Attacker: " + Attacker.GetComponent<PhotonView>().Owner.NickName + " has " + Attacker.GetComponent<Shooting>().PlayerKills);
+            //source.GetComponent<Shooting>().PlayerKills++;
             Die();
             Debug.Log(info.Sender.NickName + " killed " + info.photonView.Owner.NickName); // Sender is the one calling the RPC (the one inflicting the damage)
             // Owner is the one killed  
@@ -72,7 +91,7 @@ public class Shooting : MonoBehaviourPunCallbacks
             killNotification.transform.Find("KilledText").gameObject.GetComponent<TextMeshProUGUI>().text = info.photonView.Owner.NickName;
             Destroy(killNotification, 3.0f);
 
-            GameManager.Instance.CheckWinCondition();
+            //GameManager.Instance.CheckWinCondition();
         }
     }
 

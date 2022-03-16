@@ -9,10 +9,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
     public GameObject PlayerPrefab;
-    //public List<Player> PlayerList = new List<Player>();
-    public List<GameObject> GameObjectPlayerList = new List<GameObject>();
     public int RequiredPlayerKills = 5;
     public GameObject WinUIPanel;
+    public Dictionary<Player, int> PlayersInGame = new Dictionary<Player, int>();
 
     public void Awake()
     {
@@ -48,8 +47,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("New Player added in Player List: " + newPlayer.NickName);
-        
-        
+        //PlayersInGame.Add(newPlayer,  )
+       
+        Debug.Log("Name " + photonView.GetComponent<Shooting>().PlayerKills);
+
+        PlayersInGame.Add(newPlayer, photonView.GetComponent<Shooting>().PlayerKills);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -60,22 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void CheckWinCondition()
     {
-        if (GameObjectPlayerList.Count > 0)
-        {
-            foreach (GameObject player in GameObjectPlayerList)
-            {
-                Shooting playerShooting = player.GetComponent<Shooting>();
-                if (playerShooting)
-                {
-                    if (playerShooting.PlayerKills >= RequiredPlayerKills)
-                    {
-                        WinUIPanel.SetActive(true);
-                        WinUIPanel.transform.Find("WinnerText").GetComponent<TextMeshProUGUI>().text = "Winner: " + player.GetComponent<PhotonView>().Owner.NickName;
-                    }
-                }
-            }
-        }
-        
+       
     }
     
 }

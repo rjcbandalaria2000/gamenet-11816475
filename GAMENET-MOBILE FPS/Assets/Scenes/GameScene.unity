@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &858785612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,7 +1520,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 4216923735129625907, guid: 3eff66c4b34054a4d91875bdf2e0eb29, type: 3}
-  GameObjectPlayerList: []
   RequiredPlayerKills: 5
   WinUIPanel: {fileID: 858785611}
 --- !u!1 &1611148773
