@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 4216923735129625907, guid: 3eff66c4b34054a4d91875bdf2e0eb29, type: 3}
-  RequiredPlayerKills: 5
+  RequiredPlayerKills: 10
   WinUIPanel: {fileID: 858785611}
   WinnerNameUI: {fileID: 249427544}
 --- !u!114 &1525144787
