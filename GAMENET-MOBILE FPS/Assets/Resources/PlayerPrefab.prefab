@@ -4114,6 +4114,7 @@ MonoBehaviour:
   PlayerKills: 0
   Attacker: {fileID: 0}
   KillCounterUI: {fileID: 0}
+  isAlive: 1
   StartHealth: 100
   HealthBar: {fileID: 1866605413433206946}
 --- !u!1 &4405167645359303399

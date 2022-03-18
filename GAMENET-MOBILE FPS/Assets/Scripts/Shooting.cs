@@ -18,6 +18,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     public int PlayerKills = 0;
     public Shooting Attacker;
     public TextMeshProUGUI KillCounterUI;
+    public bool isAlive = true;
     
 
     [Header("HP Related")]
@@ -34,15 +35,10 @@ public class Shooting : MonoBehaviourPunCallbacks
         HealthBar.fillAmount = health / StartHealth;
         animator = this.GetComponent<Animator>();
         RespawnText = GameObject.Find("Respawn Text");
-        KillCounterUI = GameObject.Find("KillCounterText").GetComponent<TextMeshProUGUI>(); 
-        //KillCounterUI = this.gameObject.GetComponent<PlayerSetup>().PlayerUIPrefab.transform.Find("KillCounterText").GetComponent<TextMeshProUGUI>();
+        KillCounterUI = GameObject.Find("KillCounterText").GetComponent<TextMeshProUGUI>();
+        isAlive = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Fire()
     {
         RaycastHit hit;
@@ -54,24 +50,20 @@ public class Shooting : MonoBehaviourPunCallbacks
             photonView.RPC("CreateHitEffects", RpcTarget.All, hit.point); // only use RPCTarget.All because entering players dont need to see the created hit effects
             if (hit.collider.CompareTag("Player") && !hit.collider.gameObject.GetComponent<PhotonView>().IsMine)
             {
-                
-                
                 hit.collider.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.AllBuffered, 25);
                 Shooting hitShooting = hit.collider.gameObject.GetComponent<Shooting>();
                 if (hitShooting)
                 {
-                    if(hitShooting.health <= 0)
+                    if (hitShooting.health <= 0)
                     {
-                       
-                        PlayerKills++; 
+                        PlayerKills++;
                         KillCounterUI.text = PlayerKills.ToString();
                         Debug.Log("Current Kills: " + PlayerKills);
-                        if(PlayerKills >= GameManager.Instance.RequiredPlayerKills)
+                        if (PlayerKills >= GameManager.Instance.RequiredPlayerKills)
                         {
                             GameManager.Instance.DisplayGameOverUI(this.photonView.Owner.NickName.ToString());
                         }
                     }
-                    
                 }
             }
         }
@@ -79,24 +71,26 @@ public class Shooting : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TakeDamage(int damage ,PhotonMessageInfo info) // PhotonMessageInfo 
     {
-        this.health -= damage;
-        this.HealthBar.fillAmount = health/StartHealth;
-        if(health <= 0)
+        if (!isDead())
         {
-            //Attacker.GetComponent<Shooting>().PlayerKills ++;
-            //Debug.Log("Attacker: " + Attacker.GetComponent<PhotonView>().Owner.NickName + " has " + Attacker.GetComponent<Shooting>().PlayerKills);
-            //source.GetComponent<Shooting>().PlayerKills++;
-            Die();
-            Debug.Log(info.Sender.NickName + " killed " + info.photonView.Owner.NickName); // Sender is the one calling the RPC (the one inflicting the damage)
-            // Owner is the one killed  
-            GameObject killNotification = Instantiate(KillNotificationPrefab);//PhotonNetwork.Instantiate(KillNotificationPrefab.name, killFeedUI.transform.position, Quaternion.identity
-            killNotification.transform.SetParent(UIManager.Instance.KillFeedUI.transform);
-            killNotification.transform.localScale = Vector3.one; 
-            killNotification.transform.Find("KillerText").gameObject.GetComponent<TextMeshProUGUI>().text = info.Sender.NickName;
-            killNotification.transform.Find("KilledText").gameObject.GetComponent<TextMeshProUGUI>().text = info.photonView.Owner.NickName;
-            Destroy(killNotification, 3.0f);
-
-            //GameManager.Instance.CheckWinCondition();
+            this.health -= damage;
+            this.HealthBar.fillAmount = health / StartHealth;
+            if (health <= 0)
+            {
+                //Attacker.PlayerKills++;
+                //KillCounterUI.text = PlayerKills.ToString();
+                //Attacker.GetComponent<Shooting>().PlayerKills ++;
+                //Debug.Log("Attacker: " + Attacker.GetComponent<PhotonView>().Owner.NickName + " has " + Attacker.GetComponent<Shooting>().PlayerKills);
+                //source.GetComponent<Shooting>().PlayerKills++;
+                Die();
+                Debug.Log(info.Sender.NickName + " killed " + info.photonView.Owner.NickName); // Sender is the one calling the RPC (the one inflicting the damage)                                                                             // Owner is the one killed  
+                GameObject killNotification = Instantiate(KillNotificationPrefab);//PhotonNetwork.Instantiate(KillNotificationPrefab.name, killFeedUI.transform.position, Quaternion.identity
+                killNotification.transform.SetParent(UIManager.Instance.KillFeedUI.transform);
+                killNotification.transform.localScale = Vector3.one;
+                killNotification.transform.Find("KillerText").gameObject.GetComponent<TextMeshProUGUI>().text = info.Sender.NickName;
+                killNotification.transform.Find("KilledText").gameObject.GetComponent<TextMeshProUGUI>().text = info.photonView.Owner.NickName;
+                Destroy(killNotification, 3.0f);
+            }
         }
     }
 
@@ -136,6 +130,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         Debug.Log("Respawn");
         this.transform.GetComponent<PlayerMovementController>().enabled = true;
         photonView.RPC("RegainHealth", RpcTarget.AllBuffered);
+       
     }
 
     [PunRPC]
@@ -143,10 +138,11 @@ public class Shooting : MonoBehaviourPunCallbacks
     {
         health = StartHealth;
         HealthBar.fillAmount = health / StartHealth;
+        
     }
-
-    IEnumerator DisplayKillFeed(PhotonMessageInfo info)
+    
+    public bool isDead()
     {
-        yield return null; 
+        return health <= 0;
     }
 }
