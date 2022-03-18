@@ -264,7 +264,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -804,7 +804,6 @@ GameObject:
   - component: {fileID: 858785615}
   - component: {fileID: 858785614}
   - component: {fileID: 858785613}
-  - component: {fileID: 858785612}
   m_Layer: 5
   m_Name: WinUI
   m_TagString: Untagged
@@ -812,23 +811,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &858785612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858785611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &858785613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,6 +1468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1525144785}
   - component: {fileID: 1525144786}
+  - component: {fileID: 1525144787}
   m_Layer: 0
   m_Name: ~GameManager
   m_TagString: Untagged
@@ -1522,6 +1505,29 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 4216923735129625907, guid: 3eff66c4b34054a4d91875bdf2e0eb29, type: 3}
   RequiredPlayerKills: 5
   WinUIPanel: {fileID: 858785611}
+  WinnerNameUI: {fileID: 249427544}
+--- !u!114 &1525144787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525144784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1611148773
 GameObject:
   m_ObjectHideFlags: 0

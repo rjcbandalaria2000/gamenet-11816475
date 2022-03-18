@@ -18,6 +18,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     public int PlayerKills = 0;
     public Shooting Attacker;
     public TextMeshProUGUI KillCounterUI;
+    
 
     [Header("HP Related")]
     public float StartHealth = 100;
@@ -65,6 +66,10 @@ public class Shooting : MonoBehaviourPunCallbacks
                         PlayerKills++; 
                         KillCounterUI.text = PlayerKills.ToString();
                         Debug.Log("Current Kills: " + PlayerKills);
+                        if(PlayerKills >= GameManager.Instance.RequiredPlayerKills)
+                        {
+                            GameManager.Instance.DisplayGameOverUI(this.photonView.Owner.NickName.ToString());
+                        }
                     }
                     
                 }
