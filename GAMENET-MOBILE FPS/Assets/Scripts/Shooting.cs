@@ -69,7 +69,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
-    public void TakeDamage(int damage ,PhotonMessageInfo info) // PhotonMessageInfo 
+    public void TakeDamage(int damage ,PhotonMessageInfo info) // PhotonMessageInfo can be added without putting in argument. Can access the sender or the one called the RPC 
     {
         if (!isDead())
         {
