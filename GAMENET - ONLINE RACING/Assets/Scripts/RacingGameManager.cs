@@ -2,12 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
+using TMPro;
 
 public class RacingGameManager : MonoBehaviour
 {
+    public static RacingGameManager Instance;
     public GameObject[] VehiclePrefabs;
     public Transform[] StartingPositions;
 
+    [Header("Timer")]
+    public TextMeshProUGUI TimerText;
+
+    [Header("Laps")]
+    public List<GameObject> LapTriggers = new List<GameObject>();
+
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else if(Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
