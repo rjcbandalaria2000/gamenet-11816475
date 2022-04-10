@@ -41,6 +41,9 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetTime
   - StartRace
+  - SpawnVehicle
+  - TakeDamage
+  - Shoot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
