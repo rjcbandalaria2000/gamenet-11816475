@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviourPunCallbacks
     public Rigidbody Rb;
     public int Speed;
     public float Duration = 2f;
+    public int Damage;
+    public GameObject Source;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,7 @@ public class Projectile : MonoBehaviourPunCallbacks
     private void FixedUpdate()
     {
         Rb.AddForce(this.transform.forward * Speed * Time.deltaTime);
-        //Rb.MovePosition(Vector3.forward * Speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
+   
 }

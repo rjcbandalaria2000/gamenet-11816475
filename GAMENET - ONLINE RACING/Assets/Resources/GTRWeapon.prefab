@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 134072541181037360}
   m_Layer: 0
   m_Name: GTRWeapon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,9 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c733b23f35784284cb3d36bb3684a862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 15
   FirePoint: {fileID: 4977866338380740654}
   canShoot: 0
+  KillNotifUIPrefab: {fileID: 8085202117273089079, guid: 65f7e1b057cddf6459494b6a0be00a59, type: 3}
   CurrentHP: 0
   MaxHP: 20
   Projectile: {fileID: 8213679062956371917, guid: 1604e39657cfb95409de1bca9c73b56b, type: 3}

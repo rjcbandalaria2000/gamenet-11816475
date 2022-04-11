@@ -9730,7 +9730,7 @@ GameObject:
   - component: {fileID: -2665422105698083770}
   m_Layer: 0
   m_Name: MissileProjectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9779,8 +9779,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 0}
-  Speed: 200
+  Speed: 500
   Duration: 3
+  Damage: 0
+  Source: {fileID: 0}
 --- !u!54 &7703605138724790855
 Rigidbody:
   m_ObjectHideFlags: 0

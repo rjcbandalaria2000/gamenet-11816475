@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using Photon.Realtime;
 
-public class DeathRaceManager : MonoBehaviour
+public class DeathRaceManager : MonoBehaviourPunCallbacks
 {
     public static DeathRaceManager Instance;
 
@@ -13,7 +14,9 @@ public class DeathRaceManager : MonoBehaviour
 
     public List<GameObject> Players = new List<GameObject>();
 
+    [Header("UI")]
     public TextMeshProUGUI TimerText;
+    public GameObject KillFeedUIParent; 
 
     private void Awake()
     {
@@ -39,8 +42,8 @@ public class DeathRaceManager : MonoBehaviour
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 Debug.Log("Selected Vehicle: " + (int)playerSelectionNumber);
                 Vector3 instantiatePosition = StartingPoints[actorNumber - 1].position;
-                PhotonNetwork.Instantiate(VehiclePrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
-            
+                GameObject player = PhotonNetwork.Instantiate(VehiclePrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
+                Players.Add(player);
             }
         }
         Debug.Log("Number of Players in Lobby" + PhotonNetwork.PlayerList.Length);
@@ -54,5 +57,18 @@ public class DeathRaceManager : MonoBehaviour
         Debug.Log("Spawned Vehicle: " + playerNumber);
     }
 
-   
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+    }
+
+    public int CheckAlivePlayers()
+    {
+        return 0;
+    }
 }

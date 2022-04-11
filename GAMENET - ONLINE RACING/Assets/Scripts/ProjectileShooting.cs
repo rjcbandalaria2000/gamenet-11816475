@@ -28,6 +28,7 @@ public class ProjectileShooting : Shooting
     public override void Shoot()
     {
         GameObject spawnedProjectile = PhotonNetwork.Instantiate(Projectile.name, FirePoint.position, FirePoint.rotation) ;
-
+        spawnedProjectile.GetComponent<Projectile>().Damage = Damage;
+        spawnedProjectile.GetComponent<Projectile>().Source = this.gameObject;
     }
 }
