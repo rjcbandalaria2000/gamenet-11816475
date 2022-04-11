@@ -11,8 +11,8 @@ public class Projectile : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject, Duration);
-        Rb = this.GetComponent<Rigidbody>();    
+        Rb = this.GetComponent<Rigidbody>();
+        Destroy(this.gameObject, Duration);    
     }
 
     // Update is called once per frame
@@ -23,7 +23,8 @@ public class Projectile : MonoBehaviourPunCallbacks
 
     private void FixedUpdate()
     {
-        Rb.velocity = Vector3.right * Speed * Time.deltaTime;
+        Rb.AddForce(this.transform.forward * Speed * Time.deltaTime);
+        //Rb.MovePosition(Vector3.forward * Speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
