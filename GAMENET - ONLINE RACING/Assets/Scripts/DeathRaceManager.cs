@@ -13,10 +13,13 @@ public class DeathRaceManager : MonoBehaviourPunCallbacks
     public Transform[] StartingPoints;
 
     public List<GameObject> Players = new List<GameObject>();
+    public int AlivePlayers = 0;
 
     [Header("UI")]
     public TextMeshProUGUI TimerText;
-    public GameObject KillFeedUIParent; 
+    public GameObject KillFeedUIParent;
+    public GameObject WinUI;
+    public TextMeshProUGUI WinnerText; 
 
     private void Awake()
     {
@@ -44,9 +47,11 @@ public class DeathRaceManager : MonoBehaviourPunCallbacks
                 Vector3 instantiatePosition = StartingPoints[actorNumber - 1].position;
                 GameObject player = PhotonNetwork.Instantiate(VehiclePrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
                 Players.Add(player);
+                AlivePlayers++;
             }
         }
         Debug.Log("Number of Players in Lobby" + PhotonNetwork.PlayerList.Length);
+        WinUI.SetActive(false);
     }
     
     [PunRPC]
@@ -69,6 +74,35 @@ public class DeathRaceManager : MonoBehaviourPunCallbacks
 
     public int CheckAlivePlayers()
     {
-        return 0;
+        int alivePlayerCount = 0;
+        foreach(GameObject player in Players)
+        {
+            Shooting playerShooting = player.GetComponent<Shooting>();
+            if (playerShooting)
+            {
+                if(playerShooting.CurrentHP > 0)
+                {
+                    alivePlayerCount+=1;
+                }
+            }
+        }
+        Debug.Log("Players alive: " + alivePlayerCount);
+        return alivePlayerCount;
+    }
+
+    [PunRPC]
+    public void OnGameOver(string winnerName)
+    {
+        WinUI.SetActive(true);
+        WinnerText.text = "#1 " + winnerName;
+    }
+
+    public void DisplayWinningScreen(string winnerName)
+    {
+        if (this.photonView)
+        {
+            Debug.Log("there is photon view");
+        }
+        this.photonView.RPC("OnGameOver", RpcTarget.AllBuffered, winnerName);
     }
 }

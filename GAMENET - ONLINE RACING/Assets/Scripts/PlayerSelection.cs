@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
- 
+using TMPro; 
+
 public class PlayerSelection : MonoBehaviour
 {
     public GameObject[] SelectablePlayers;
+    public GameObject[] SelectablePlayersDetails;
     public int PlayerSelectionNumber;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,14 @@ public class PlayerSelection : MonoBehaviour
             go.SetActive(false);
         }
         SelectablePlayers[playerNumber].SetActive(true);
-
+        if(NetworkManager.Instance.GameMode == "dr")
+        {
+            foreach(GameObject go in SelectablePlayersDetails)
+            {
+                go.SetActive(false) ;
+            }
+            SelectablePlayersDetails[playerNumber].SetActive(true);
+        }
         //Setting the player selection for the vehicle 
         ExitGames.Client.Photon.Hashtable playerSelectionProperties = new ExitGames.Client.Photon.Hashtable() { { Constants.PLAYER_SELECTION_NUMBER, PlayerSelectionNumber } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProperties);

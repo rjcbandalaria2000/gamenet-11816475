@@ -9,6 +9,8 @@ using UnityEngine.Assertions;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
 
+    public static NetworkManager Instance;
+
     [Header("Login UI")]
     public GameObject LoginUIPanel;
     public InputField PlayerNameInput;
@@ -41,6 +43,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Dictionary<int, GameObject> playerListGameObjects;
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {

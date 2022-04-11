@@ -3471,6 +3471,10 @@ MonoBehaviour:
   - {fileID: 1833322808}
   - {fileID: 1736180112}
   - {fileID: 299006209}
+  SelectablePlayersDetails:
+  - {fileID: 1805289356}
+  - {fileID: 1694358756}
+  - {fileID: 223612671}
   PlayerSelectionNumber: 0
 --- !u!1 &928443321
 GameObject:
@@ -6544,7 +6548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1694358757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6561,8 +6565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 3.432434, y: -110}
-  m_SizeDelta: {x: 1100, y: 100}
+  m_AnchoredPosition: {x: 6.9673, y: -115.3024}
+  m_SizeDelta: {x: 1107.0698, y: 110.6048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694358758
 MonoBehaviour:
@@ -6597,7 +6601,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Machine Gun \nDamage 100- FireRate 10"
+  m_Text: Missile Launcher Damage 15- Health  20
 --- !u!222 &1694358759
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6753,7 +6757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Machine Gun Damage 100- FireRate 10
+  m_Text: Machine Gun Damage 15 - Health 20
 --- !u!222 &1805289359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6779,7 +6783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1833322809
 RectTransform:
   m_ObjectHideFlags: 0

@@ -50,6 +50,14 @@ public class Shooting : MonoBehaviourPunCallbacks
             killNotif.transform.Find("KilledText").GetComponent<TextMeshProUGUI>().text = deadPlayerNickname;
 
         }
+        if(photonEvent.Code == (byte)RaiseEventsCode.WhoWonEventCode)
+        {
+            object[] data = (object[])photonEvent.CustomData;
+            killerName = (string)data[2];
+            Debug.Log("Killer Name: " + killerName);
+            DeathRaceManager.Instance.DisplayWinningScreen(killerName);
+
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -83,8 +91,9 @@ public class Shooting : MonoBehaviourPunCallbacks
             Debug.Log("Death");
             GetComponent<PlayerSetup>().Camera.transform.parent = null;
             GetComponent<VehicleMovement>().enabled = false;
-            GetComponent<Shooting>().enabled = false;
-
+            GetComponent<Shooting>().canShoot = false;
+            //GetComponent<BoxCollider>().enabled = false;
+            DeathRaceManager.Instance.AlivePlayers--;
             string deadPlayerNickName = photonView.Owner.NickName;
             int viewId = photonView.ViewID;
 
@@ -100,9 +109,15 @@ public class Shooting : MonoBehaviourPunCallbacks
                 Reliability = false
             };
 
-            PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoDiedEventCode, data, raiseEventOptions, sendOptions);
-
-
+            if(DeathRaceManager.Instance.AlivePlayers >= 1)
+            {
+                PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoDiedEventCode, data, raiseEventOptions, sendOptions);
+            }
+            if(DeathRaceManager.Instance.AlivePlayers <= 1)
+            {
+                PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoWonEventCode, data, raiseEventOptions, sendOptions);
+            }
+            
         }
         
     }
