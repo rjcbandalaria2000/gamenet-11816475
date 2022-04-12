@@ -73,14 +73,15 @@ public class Shooting : MonoBehaviourPunCallbacks
 
 
     [PunRPC]
-    public void TakeDamage(int damage, PhotonMessageInfo info)
+    public virtual void TakeDamage(int damage, PhotonMessageInfo info)
     {
         CurrentHP -= damage;
         Debug.Log("Took damage: " + damage);
         if (CurrentHP <= 0)
         {
-            Death();
             killerName = info.Sender.NickName;
+            Death();
+            
         }
     }
 
@@ -109,10 +110,10 @@ public class Shooting : MonoBehaviourPunCallbacks
                 Reliability = false
             };
 
-            if(DeathRaceManager.Instance.AlivePlayers >= 1)
-            {
-                PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoDiedEventCode, data, raiseEventOptions, sendOptions);
-            }
+           
+            
+            PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoDiedEventCode, data, raiseEventOptions, sendOptions);
+            
             if(DeathRaceManager.Instance.AlivePlayers <= 1)
             {
                 PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoWonEventCode, data, raiseEventOptions, sendOptions);
