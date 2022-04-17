@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 1294863439285215958}
   - component: {fileID: 1294863439285200682}
   - component: {fileID: 1294863439285280604}
+  - component: {fileID: 1222228054465456044}
   m_Layer: 5
   m_Name: PlayerListPrefab
   m_TagString: Untagged
@@ -559,3 +560,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &1222228054465456044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294863439290794768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb894d8defc5ad4495157eacab9261e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerNameText: {fileID: 1294863439285219800}
+  PlayerReadyButton: {fileID: 1294863439285279534}
+  PlayerReadyImage: {fileID: 1294863439285309300}
+  isPlayerReady: 0
