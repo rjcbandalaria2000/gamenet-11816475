@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 30194231}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483729329}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: GoToNextPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &30194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,7 +1289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &380486139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1417,6 +1429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 483729327}
   - component: {fileID: 483729328}
+  - component: {fileID: 483729329}
   m_Layer: 0
   m_Name: ~NetworkManager
   m_TagString: Untagged
@@ -1454,6 +1467,7 @@ MonoBehaviour:
   PlayerNameInput: {fileID: 1907143456}
   ConnectingUIPanel: {fileID: 2089629504}
   GameOptionsPanel: {fileID: 1070375382}
+  JoinRandomRoomPanel: {fileID: 1716145103}
   CreateRoomPanel: {fileID: 380486138}
   CreatingRoomPanel: {fileID: 1849084422}
   RoomNameInput: {fileID: 1064100039}
@@ -1463,6 +1477,23 @@ MonoBehaviour:
   PlayerListPrefab: {fileID: 1294863439290794768, guid: 46f749e614f847a47940ad1dde964668, type: 3}
   PlayerListParent: {fileID: 1807437643}
   StartGameButton: {fileID: 2024295424}
+--- !u!114 &483729329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483729326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f480af58e9250724788523be87c1a913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectablePlayers:
+  - {fileID: 352502200}
+  - {fileID: 1984826017}
+  - {fileID: 1048353058}
+  PlayerSelectionNumber: 0
 --- !u!1 &628567316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 806098410}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483729328}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: OnJoinGameButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &806098410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5614,7 +5657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713463756}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483729329}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: GoToPreviousPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713463756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5804,7 +5859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1716145104
 RectTransform:
   m_ObjectHideFlags: 0

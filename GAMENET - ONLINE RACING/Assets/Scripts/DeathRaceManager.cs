@@ -37,7 +37,7 @@ public class DeathRaceManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnectedAndReady)
         {
             object playerSelectionNumber;
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(Constants.PLAYER_SELECTION_NUMBER, out playerSelectionNumber))
