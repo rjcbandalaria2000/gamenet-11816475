@@ -19,6 +19,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Header("GameOptions UI")]
     public GameObject GameOptionsPanel;
 
+    [Header("Join Game UI")]
+    public GameObject JoinRandomRoomPanel;
+
     [Header("CreateRoom UI")]
     public GameObject CreateRoomPanel;
     public GameObject CreatingRoomPanel;
@@ -52,6 +55,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomPanel.SetActive(CreateRoomPanel.name.Equals(panelToActivate));
         CreatingRoomPanel.SetActive(CreatingRoomPanel.name.Equals(panelToActivate));
         InsideRoomPanel.SetActive(InsideRoomPanel.name.Equals(panelToActivate));    
+        JoinRandomRoomPanel.SetActive(JoinRandomRoomPanel.name.Equals(panelToActivate));    
     }
     #endregion
 
@@ -179,6 +183,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         playerListGameObjects.Remove(otherPlayer.ActorNumber);
         RoomInfoText.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name + " " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
     }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log(message);
+        string roomName = RoomNameInput.text;
+        if (string.IsNullOrEmpty(roomName))
+        {
+            roomName = "Room " + Random.Range(1000, 10000);
+        }
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 2;
+
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
+    }
     #endregion
 
 
@@ -235,6 +253,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public void OnJoinGameButtonClicked()
+    {
+        ActivatePanel(JoinRandomRoomPanel.name);
+        PhotonNetwork.JoinRandomRoom();
+    }
     
 
     #endregion
