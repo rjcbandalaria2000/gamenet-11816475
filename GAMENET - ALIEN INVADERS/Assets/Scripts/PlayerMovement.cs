@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         movement.x = Input.GetAxis("Horizontal");
-        //Rb.velocity = new Vector3(movement.x * MoveSpeed * Time.deltaTime, movement.y, movement.z);
+
         Rb.MovePosition(Rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
     }
 }

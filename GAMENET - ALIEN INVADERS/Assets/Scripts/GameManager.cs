@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Selected Space Ship: " + (int)playerSelectionNumber);
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+                Debug.Log("Actor Number: " + PhotonNetwork.LocalPlayer.ActorNumber);
                 Vector3 instantiatePosition = SpawnPoints[actorNumber - 1].position;
                 PhotonNetwork.Instantiate(SpaceShipPrefabs[(int)playerSelectionNumber].name, instantiatePosition, SpawnPoints[actorNumber - 1].rotation);
             }
