@@ -108,6 +108,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 roomName = "Room " + Random.Range(1000, 10000);
             }
             RoomOptions roomOptions = new RoomOptions();
+            if (GameMode == "dr") 
+            {
+                roomOptions.MaxPlayers = 3;
+            }
             //Since the game has different game modes, we need to use custom properties 
             string[] roomPropertiesInLobby = { "gm" }; // gm = game mode 
                                                        // the game mode doesn't contain anything right now
