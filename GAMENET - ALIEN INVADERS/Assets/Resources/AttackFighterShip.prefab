@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: -8666347389122057056}
   - component: {fileID: -2443515748621834883}
   - component: {fileID: 5856759008528424320}
+  - component: {fileID: 2527279693161967882}
   m_Layer: 0
   m_Name: AttackFighterShip
   m_TagString: Untagged
@@ -493,6 +494,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.42, y: 3.4400406, z: 13.842942}
   m_Center: {x: 0, y: -0.00001049042, z: 0}
+--- !u!114 &2527279693161967882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280642448783692538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e23ec4793dbfa49809ffcfd5cb7429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 0}
+  FirePoint: {fileID: 0}
+  Damage: 1
+  CurrentHP: 0
+  MaxHP: 0
 --- !u!1 &5581074450753456910
 GameObject:
   m_ObjectHideFlags: 0

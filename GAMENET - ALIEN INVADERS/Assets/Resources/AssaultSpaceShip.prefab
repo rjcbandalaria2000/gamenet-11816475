@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 3449772816517077820}
   - component: {fileID: 8059706836006876366}
   - component: {fileID: -3411496789990583875}
+  - component: {fileID: 4482185258415877100}
   m_Layer: 0
   m_Name: AssaultSpaceShip
   m_TagString: Untagged
@@ -320,6 +321,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.24, y: 2.4964614, z: 10.716058}
   m_Center: {x: 0.00000023841858, y: -0.0000010132792, z: 0}
+--- !u!114 &4482185258415877100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612908056650497957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e23ec4793dbfa49809ffcfd5cb7429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 0}
+  FirePoint: {fileID: 0}
+  Damage: 1
+  CurrentHP: 0
+  MaxHP: 0
 --- !u!1 &1937763569919435649
 GameObject:
   m_ObjectHideFlags: 0
