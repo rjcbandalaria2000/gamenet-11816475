@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1511d6f56581b2b4dace0c0b15c20ac3, type: 3}
   m_Name: Wave1
   m_EditorClassIdentifier: 
-  EnemiesToSpawn: []
-  NumberOfEnemies: 
+  EnemiesToSpawn:
+  - {fileID: 4485487202516762272, guid: f96fa9495ab37cd4195ad6dcf6e7c98d, type: 3}
+  - {fileID: 3403862189029183268, guid: 2a8a0f439cc0a74458500bfb472b6795, type: 3}
+  - {fileID: 8431133365092549189, guid: 3e54bfcd397aa7447a743ba9aa81e475, type: 3}
+  NumberOfEnemies: 050000000600000007000000
   PrepTime: 0

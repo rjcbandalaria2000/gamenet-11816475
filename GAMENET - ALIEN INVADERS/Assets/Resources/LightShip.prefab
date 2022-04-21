@@ -1022,11 +1022,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e23ec4793dbfa49809ffcfd5cb7429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Source: {fileID: 0}
   ProjectilePrefab: {fileID: 6171351286152229099, guid: 5aee2b1e6d9f6a54c82e9ab4f9936ffe, type: 3}
   FirePoint: {fileID: 1211027534}
   Damage: 1
-  CurrentHP: 0
-  MaxHP: 0
+  canShoot: 0
+  Points: 0
 --- !u!1 &4155867992383558630
 GameObject:
   m_ObjectHideFlags: 0

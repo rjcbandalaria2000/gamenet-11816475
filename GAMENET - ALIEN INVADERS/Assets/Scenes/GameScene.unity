@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 144868305}
   - component: {fileID: 144868304}
+  - component: {fileID: 144868306}
   m_Layer: 0
   m_Name: ~GameManager
   m_TagString: Untagged
@@ -159,6 +160,12 @@ MonoBehaviour:
   - {fileID: 4046184374197046153, guid: cc273febb07ec884e898faa2b23e212d, type: 3}
   - {fileID: 5280642448783692538, guid: 79f976096bb4a134bb3ba444e1d0190f, type: 3}
   - {fileID: 612908056650497957, guid: 9185c990ddb40a248813ca44511a5acd, type: 3}
+  WinUI: {fileID: 0}
+  WaveDatas:
+  - {fileID: 11400000, guid: 1881adcd205045d479eb6cc1e3d48d57, type: 2}
+  Spawner: {fileID: 753677806}
+  WaveCount: 0
+  SpawnedEnemies: 0
 --- !u!4 &144868305
 Transform:
   m_ObjectHideFlags: 0
@@ -173,6 +180,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144868306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144868303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &277996011
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +217,7 @@ GameObject:
   - component: {fileID: 277996016}
   m_Layer: 0
   m_Name: Bounds (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -363,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753677802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.9, y: 0.68, z: 0}
+  m_LocalPosition: {x: -7.73, y: 0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -381,9 +410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27fd40e92e90f847be6ac813256d1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4485487202516762272, guid: f96fa9495ab37cd4195ad6dcf6e7c98d, type: 3}
-  EnemyCountToSpawn: 2
-  SpawnDelay: 1
+  EnemyPrefabs: []
+  EnemyCountToSpawn: 
+  SpawnDelay: 3
   SpawnTimer: 2
 --- !u!1 &893164185
 GameObject:
@@ -497,7 +526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &961096320
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +635,7 @@ GameObject:
   - component: {fileID: 981704740}
   m_Layer: 0
   m_Name: Bounds (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -719,7 +748,7 @@ GameObject:
   - component: {fileID: 1072154365}
   m_Layer: 0
   m_Name: Bounds (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -832,7 +861,7 @@ GameObject:
   - component: {fileID: 1398975876}
   m_Layer: 0
   m_Name: Bounds
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

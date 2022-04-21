@@ -22,17 +22,25 @@ public class HealthPoints : MonoBehaviourPunCallbacks
     public void TakeDamage(int damage, PhotonMessageInfo info)
     {
         CurrentHealth -= damage;
+        Debug.Log("Hit by: " + info.Sender.NickName);
+        
         if(CurrentHealth <= 0)
         {
             Debug.Log("Death");
+            Killer = GameManager.Instance.GetPlayerGameObject(info.Sender.ActorNumber);
             Death();
         }
     }
 
     public void Death()
     {
-        Killer.GetComponent<Shooting>().GainPoints(PointValue);
-        Destroy(this.gameObject);   
+        if (photonView.IsMine)
+        {
+            Killer.GetComponent<Shooting>().GainPoints(PointValue);
+            GameManager.Instance.PhotonRemoveEnemies();
+            PhotonNetwork.Destroy(this.gameObject);   
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,10 +49,26 @@ public class HealthPoints : MonoBehaviourPunCallbacks
         {
             int projectileDamage = other.GetComponent<Projectile>().Damage;
             Killer = other.GetComponent<Projectile>().Source;
+            if (Killer)
+            {
+                Debug.Log("Killer is set");
+            }
             photonView.RPC("TakeDamage", RpcTarget.AllBuffered, projectileDamage);
             //Destroy(other.gameObject);
-            Destroy(other.gameObject);
+            
+            
+             Destroy(other.gameObject);
+            
+           
             Debug.Log("Hit by projectile");
+        }
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            GameManager.Instance.PhotonRemoveEnemies();
+           
+                PhotonNetwork.Destroy(this.gameObject);
+            
+            //PhotonNetwork.Destroy(this.gameObject);
         }
     }
 

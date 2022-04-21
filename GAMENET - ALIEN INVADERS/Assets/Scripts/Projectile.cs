@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviourPunCallbacks
 {
     public Rigidbody Rb;
     public int Damage = 0;
@@ -32,8 +32,12 @@ public class Projectile : MonoBehaviour
         {
             if(Source != other.gameObject.GetComponent<Projectile>().Source)
             {
-                Destroy(this.gameObject);
-                Destroy(other.gameObject);
+                if (photonView.IsMine)
+                {
+                    PhotonNetwork.Destroy(this.gameObject);
+                    PhotonNetwork.Destroy(other.gameObject);
+                }
+               
                 Debug.Log("Destroyed another projectile");
             }
            

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8433524344641133321}
   - component: {fileID: 8462423254475991225}
   - component: {fileID: 8454228751525212855}
-  - component: {fileID: 8494670173494149639}
   - component: {fileID: 8073753922407131874}
   - component: {fileID: 1485310847474784911}
   - component: {fileID: 649022545675094057}
   - component: {fileID: 9066491067796297729}
   - component: {fileID: 8688024472689193281}
+  - component: {fileID: -7828791441759692466}
   m_Layer: 0
   m_Name: MotherShip
   m_TagString: Untagged
@@ -88,20 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8494670173494149639
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8431133365092549189}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 5c929a1e7e6053f499c799f0b76fc965, type: 3}
 --- !u!114 &8073753922407131874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +135,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8431133365092549189}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7.0721316, y: 20.1, z: 18.998775}
@@ -167,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 0}
-  MoveSpeed: 50
+  MoveSpeed: 20
   Movement: {x: 0, y: 0, z: 0}
 --- !u!54 &8688024472689193281
 Rigidbody:
@@ -183,5 +169,21 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 124
+  m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-7828791441759692466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431133365092549189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32233650437ba2842b800aaf5c2dbb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 0
+  MaxHealth: 3
+  PointValue: 300
+  Killer: {fileID: 0}

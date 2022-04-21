@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - TakeDamage
   - GainPoints
+  - AddPoints
+  - Shoot
+  - OnGameWon
+  - AddEnemies
+  - RemoveEnemies
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1784480529099422361}
   - component: {fileID: 1605704621966263239}
   - component: {fileID: 2574554365813737426}
+  - component: {fileID: -1520779783746902348}
   m_Layer: 0
   m_Name: SpeedyAlienShip
   m_TagString: Untagged
@@ -170,3 +171,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.18562548, y: 0.18562548, z: 0.43652335}
   m_Center: {x: 0, y: 0, z: -0.06688097}
+--- !u!114 &-1520779783746902348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403862189029183268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32233650437ba2842b800aaf5c2dbb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 0
+  MaxHealth: 1
+  PointValue: 150
+  Killer: {fileID: 0}

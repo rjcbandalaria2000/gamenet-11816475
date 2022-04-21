@@ -19,7 +19,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             Shooting = this.GetComponent<Shooting>();
         }
         PlayerMovement.enabled = photonView.IsMine;
-        Shooting.enabled = photonView.IsMine;
+        //Shooting.enabled = photonView.IsMine;
     }
 
     // Update is called once per frame

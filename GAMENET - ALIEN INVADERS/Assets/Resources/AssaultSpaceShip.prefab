@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovement: {fileID: 8059706836006876366}
+  Shooting: {fileID: 0}
 --- !u!114 &8059706836006876366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,11 +334,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e23ec4793dbfa49809ffcfd5cb7429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 0}
+  Source: {fileID: 0}
+  ProjectilePrefab: {fileID: 6171351286152229099, guid: 5aee2b1e6d9f6a54c82e9ab4f9936ffe, type: 3}
   FirePoint: {fileID: 0}
   Damage: 1
-  CurrentHP: 0
-  MaxHP: 0
+  canShoot: 0
+  Points: 0
 --- !u!1 &1937763569919435649
 GameObject:
   m_ObjectHideFlags: 0

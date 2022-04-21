@@ -5,8 +5,8 @@ using Photon.Pun;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
-    public int EnemyCountToSpawn;
+    public List<GameObject> EnemyPrefabs = new List<GameObject>();
+    public List<int> EnemyCountToSpawn = new List<int>();
     public float SpawnDelay;
     public float SpawnTimer; 
 
@@ -14,11 +14,11 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        { 
-            SpawnEnemies();
+        //if (PhotonNetwork.IsMasterClient)
+        //{ 
+        //    SpawnEnemies();
 
-        }
+        //}
        
     }
 
@@ -36,10 +36,14 @@ public class Spawner : MonoBehaviour
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(SpawnTimer);
-        for(int i = 0; i < EnemyCountToSpawn; i++)
+        for(int i = 0; i < EnemyPrefabs.Count; i++)
         {
-            GameObject enemy = PhotonNetwork.Instantiate(EnemyPrefab.name, this.transform.position, this.transform.rotation);
-            yield return new WaitForSeconds(SpawnDelay);
+            for (int j = 0; j < EnemyCountToSpawn.Count; j++)
+            {
+                GameObject enemy = PhotonNetwork.Instantiate(EnemyPrefabs[i].name, this.transform.position, this.transform.rotation);
+                GameManager.Instance.PhotonAddEnemies();
+                yield return new WaitForSeconds(SpawnDelay);
+            }
         }
        
     }
