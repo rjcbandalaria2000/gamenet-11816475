@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
+using Photon.Realtime;
+using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("UI")]
     public GameObject WinUI;
+    public TextMeshProUGUI WinnerText;
+    public TextMeshProUGUI SecondWinnerText;
 
     [Header("Spawner")]
     public List<WaveData> WaveDatas = new List<WaveData>();
@@ -26,6 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public enum RaiseEventsCode
     {
         OnStartWave = 0,
+        WhoWon = 1
     }
     private void OnEnable()
     {
@@ -42,6 +47,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(photonEvent.Code == (byte)RaiseEventsCode.OnStartWave)
         {
 
+        }
+        if(photonEvent.Code == (byte)RaiseEventsCode.WhoWon)
+        {
+            object[] data = (object[])photonEvent.CustomData;
+
+            string winnerName = (string)data[0];
+            string secondPlaceName = (string)data[1];
+            int winnerPoints = (int)data[2];
+            int secondPlacePoints = (int)data[3];
+
+            WinUI.SetActive(true);
+            WinnerText.text = "#1 " + winnerName + " Points: " + winnerPoints.ToString();
+            SecondWinnerText.text = "#2 " + secondPlaceName + " Points: " + secondPlacePoints.ToString();
         }
     }
 
@@ -81,19 +99,73 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 StartWave();
             }
+            WinUI.SetActive(false);
         }
         
     }
 
+
+
     public void GameWon()
     {
-
+        photonView.RPC("OnGameWon", RpcTarget.AllBuffered);
     }
-    
+
     [PunRPC]
     public void OnGameWon()
     {
+        string winnerName;
+        string secondName;
+        int winnerPoints;
+        int secondPoints;
+        GameObject playerOne;
+        PlayersInRoom.TryGetValue(1, out playerOne);
+        GameObject playerTwo;
+        PlayersInRoom.TryGetValue(2, out playerTwo);
+        Debug.Log("Player two: " + playerTwo.name);
+        
 
+        if (playerOne)
+        {
+            Debug.Log("Player one: " + playerOne.GetComponent<PhotonView>().Owner.NickName);
+        }
+        if (playerTwo)
+        {
+            Debug.Log("Player two: " + playerTwo.GetComponent<PhotonView>().Owner.NickName);
+        }
+        if (playerOne.GetComponent<Shooting>().Points > playerTwo.GetComponent<Shooting>().Points)
+        {
+            winnerName = playerOne.GetComponent<PhotonView>().Owner.NickName;
+            winnerPoints = playerOne.GetComponent<Shooting>().Points;
+            secondName = playerTwo.GetComponent<PhotonView>().Owner.NickName;
+            secondPoints = playerTwo.GetComponent<Shooting>().Points;
+        }
+        else
+        {
+            winnerName = playerTwo.GetComponent<PhotonView>().Owner.NickName;
+            winnerPoints = playerTwo.GetComponent<Shooting>().Points;
+            secondName = playerOne.GetComponent<PhotonView>().Owner.NickName;
+            secondPoints= playerOne.GetComponent<Shooting>().Points;
+        }
+
+
+        object[] data = new object[]
+        {
+            winnerName, secondName, winnerPoints, secondPoints
+        };
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.All,
+            CachingOption = EventCaching.AddToRoomCache
+        };
+        SendOptions sendOptions = new SendOptions
+        {
+            Reliability = false
+        };
+
+        PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoWon, data, raiseEventOptions, sendOptions);
+        Debug.Log("Game Finished");
     }
 
     public void StartWave()
@@ -114,6 +186,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("No More Waves");
+            GameWon();
         }
         
     }
