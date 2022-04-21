@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8316218475065790075}
   m_Layer: 0
   m_Name: LightShipBlasterFire
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 0}
-  Damage: 0
-  ProjectileSpeed: 50
+  Damage: 1
+  ProjectileSpeed: 500
+  Source: {fileID: 0}
 --- !u!114 &3494366875831871797
 MonoBehaviour:
   m_ObjectHideFlags: 0

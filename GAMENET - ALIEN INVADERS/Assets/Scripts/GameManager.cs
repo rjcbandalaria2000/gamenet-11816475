@@ -4,11 +4,12 @@ using UnityEngine;
 using Photon.Pun;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
     public List<Transform> SpawnPoints = new List<Transform>();
     public List<GameObject> SpaceShipPrefabs = new List<GameObject>(); 
+    public Dictionary<int , GameObject> PlayersInRoom = new Dictionary<int , GameObject>();
 
     private void Awake()
     {
@@ -35,13 +36,15 @@ public class GameManager : MonoBehaviour
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 Debug.Log("Actor Number: " + PhotonNetwork.LocalPlayer.ActorNumber);
                 Vector3 instantiatePosition = SpawnPoints[actorNumber - 1].position;
-                PhotonNetwork.Instantiate(SpaceShipPrefabs[(int)playerSelectionNumber].name, instantiatePosition, SpawnPoints[actorNumber - 1].rotation);
+                GameObject player = PhotonNetwork.Instantiate(SpaceShipPrefabs[(int)playerSelectionNumber].name, instantiatePosition, SpawnPoints[actorNumber - 1].rotation);
+                PlayersInRoom.Add(PhotonNetwork.LocalPlayer.ActorNumber, player);
             }
             else
             {
                 Debug.Log("No Custom Properties");
             }
         }
+        
     }
 
   

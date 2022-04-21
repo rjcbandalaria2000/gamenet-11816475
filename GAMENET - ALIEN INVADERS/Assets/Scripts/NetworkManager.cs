@@ -197,6 +197,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
+
+    
     #endregion
 
 

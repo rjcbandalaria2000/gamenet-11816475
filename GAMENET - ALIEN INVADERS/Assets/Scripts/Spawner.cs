@@ -14,7 +14,12 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemies();
+        if (PhotonNetwork.IsMasterClient)
+        { 
+            SpawnEnemies();
+
+        }
+       
     }
 
     // Update is called once per frame
@@ -33,7 +38,7 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(SpawnTimer);
         for(int i = 0; i < EnemyCountToSpawn; i++)
         {
-            GameObject enemy = Instantiate(EnemyPrefab, this.transform.position, this.transform.rotation);
+            GameObject enemy = PhotonNetwork.Instantiate(EnemyPrefab.name, this.transform.position, this.transform.rotation);
             yield return new WaitForSeconds(SpawnDelay);
         }
        

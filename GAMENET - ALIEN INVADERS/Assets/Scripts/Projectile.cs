@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     public Rigidbody Rb;
     public int Damage = 0;
     public int ProjectileSpeed = 10;
+    public GameObject Source;
     
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,19 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         Rb.AddForce(this.transform.up * ProjectileSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            if(Source != other.gameObject.GetComponent<Projectile>().Source)
+            {
+                Destroy(this.gameObject);
+                Destroy(other.gameObject);
+                Debug.Log("Destroyed another projectile");
+            }
+           
+        }
     }
 }
