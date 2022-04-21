@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
-  ProjectilePrefab: {fileID: 6171351286152229099, guid: 5aee2b1e6d9f6a54c82e9ab4f9936ffe, type: 3}
+  ProjectilePrefab: {fileID: 6171351286152229099, guid: 63f3a6c42478bc345af4e463c7322452, type: 3}
   FirePoint: {fileID: 1211027534}
   Damage: 1
   canShoot: 0

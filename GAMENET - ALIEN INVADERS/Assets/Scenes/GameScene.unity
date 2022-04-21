@@ -160,7 +160,12 @@ MonoBehaviour:
   - {fileID: 4046184374197046153, guid: cc273febb07ec884e898faa2b23e212d, type: 3}
   - {fileID: 5280642448783692538, guid: 79f976096bb4a134bb3ba444e1d0190f, type: 3}
   - {fileID: 612908056650497957, guid: 9185c990ddb40a248813ca44511a5acd, type: 3}
+  Players: []
   WinUI: {fileID: 624810627}
+  FinisherUIs:
+  - {fileID: 1072481509}
+  - {fileID: 1990918078}
+  FinisherUIIndex: 0
   WinnerText: {fileID: 1072481511}
   SecondWinnerText: {fileID: 1990918080}
   WaveDatas:

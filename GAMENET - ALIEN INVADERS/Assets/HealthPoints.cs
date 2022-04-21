@@ -34,12 +34,11 @@ public class HealthPoints : MonoBehaviourPunCallbacks
 
     public void Death()
     {
-        if (photonView.IsMine)
-        {
+       
             Killer.GetComponent<Shooting>().GainPoints(PointValue);
             GameManager.Instance.PhotonRemoveEnemies();
             PhotonNetwork.Destroy(this.gameObject);   
-        }
+        
         
     }
 

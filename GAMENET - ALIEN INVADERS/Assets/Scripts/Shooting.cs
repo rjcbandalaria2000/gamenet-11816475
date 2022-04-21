@@ -52,8 +52,12 @@ public class Shooting : MonoBehaviourPunCallbacks
     [PunRPC]
     public void AddPoints(int pointValue)
     {
-        Points += pointValue;
-        Debug.Log("Gained points. Total Points: " + Points);
+        if (photonView.IsMine)
+        {
+            Points += pointValue;
+            Debug.Log("Gained points. Total Points: " + Points);
+        }
+       
     }
 
     

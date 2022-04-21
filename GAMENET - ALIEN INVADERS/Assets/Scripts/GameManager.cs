@@ -12,9 +12,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     public List<Transform> SpawnPoints = new List<Transform>();
     public List<GameObject> SpaceShipPrefabs = new List<GameObject>(); 
     public Dictionary<int , GameObject> PlayersInRoom = new Dictionary<int , GameObject>();
-
+    public List<GameObject> Players = new List<GameObject>();
+    public Dictionary<int, int> GameScores = new Dictionary<int, int>();    
+    
     [Header("UI")]
     public GameObject WinUI;
+    public List<GameObject> FinisherUIs = new List<GameObject>();
+    public int FinisherUIIndex = 0;
+    //public List<TextMeshProUGUI> PlayerScores = new List<TextMeshProUGUI>();
     public TextMeshProUGUI WinnerText;
     public TextMeshProUGUI SecondWinnerText;
 
@@ -53,13 +58,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             object[] data = (object[])photonEvent.CustomData;
 
             string winnerName = (string)data[0];
-            string secondPlaceName = (string)data[1];
-            int winnerPoints = (int)data[2];
-            int secondPlacePoints = (int)data[3];
+            //string secondPlaceName = (string)data[1];
+            int winnerPoints = (int)data[1];
+            //int secondPlacePoints = (int)data[3];
 
             WinUI.SetActive(true);
-            WinnerText.text = "#1 " + winnerName + " Points: " + winnerPoints.ToString();
-            SecondWinnerText.text = "#2 " + secondPlaceName + " Points: " + secondPlacePoints.ToString();
+            FinisherUIs[FinisherUIIndex].GetComponent<TextMeshProUGUI>().text = winnerName + " Points: " + winnerPoints.ToString();
+            FinisherUIIndex++;
+            //SecondWinnerText.text = "#2 " + secondPlaceName + " Points: " + secondPlacePoints.ToString();
         }
     }
 
@@ -90,6 +96,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Vector3 instantiatePosition = SpawnPoints[actorNumber - 1].position;
                 GameObject player = PhotonNetwork.Instantiate(SpaceShipPrefabs[(int)playerSelectionNumber].name, instantiatePosition, SpawnPoints[actorNumber - 1].rotation);
                 PlayersInRoom.Add(PhotonNetwork.LocalPlayer.ActorNumber, player);
+                Players.Add(player);
+                Debug.Log("Players in Lobby " + PlayersInRoom.Count);
             }
             else
             {
@@ -104,7 +112,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+       Debug.Log("New Player: " + newPlayer.NickName);
+    }
 
+    [PunRPC]
+    public void RecordScores(int actorNumber , int points)
+    {
+        GameScores.Add(actorNumber, points);
+      
+    }
+
+
+    public void PhotonRecordScores(int actorNumber, string name, int points)
+    {
+        photonView.RPC("RecordScores", RpcTarget.AllBuffered, actorNumber, name , points);  
+    }
 
     public void GameWon()
     {
@@ -114,44 +138,20 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void OnGameWon()
     {
-        string winnerName;
-        string secondName;
-        int winnerPoints;
-        int secondPoints;
-        GameObject playerOne;
-        PlayersInRoom.TryGetValue(1, out playerOne);
-        GameObject playerTwo;
-        PlayersInRoom.TryGetValue(2, out playerTwo);
-        Debug.Log("Player two: " + playerTwo.name);
-        
+        string winnerName = GetPlayerGameObject(PhotonNetwork.LocalPlayer.ActorNumber).GetComponent<PhotonView>().Owner.NickName;
+        int winnerPoints = GetPlayerGameObject(PhotonNetwork.LocalPlayer.ActorNumber).GetComponent<Shooting>().Points;
 
-        if (playerOne)
-        {
-            Debug.Log("Player one: " + playerOne.GetComponent<PhotonView>().Owner.NickName);
-        }
-        if (playerTwo)
-        {
-            Debug.Log("Player two: " + playerTwo.GetComponent<PhotonView>().Owner.NickName);
-        }
-        if (playerOne.GetComponent<Shooting>().Points > playerTwo.GetComponent<Shooting>().Points)
-        {
-            winnerName = playerOne.GetComponent<PhotonView>().Owner.NickName;
-            winnerPoints = playerOne.GetComponent<Shooting>().Points;
-            secondName = playerTwo.GetComponent<PhotonView>().Owner.NickName;
-            secondPoints = playerTwo.GetComponent<Shooting>().Points;
-        }
-        else
-        {
-            winnerName = playerTwo.GetComponent<PhotonView>().Owner.NickName;
-            winnerPoints = playerTwo.GetComponent<Shooting>().Points;
-            secondName = playerOne.GetComponent<PhotonView>().Owner.NickName;
-            secondPoints= playerOne.GetComponent<Shooting>().Points;
-        }
+       
+     
+
+      
+
+       
 
 
         object[] data = new object[]
         {
-            winnerName, secondName, winnerPoints, secondPoints
+            winnerName, winnerPoints
         };
 
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions
@@ -167,6 +167,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.WhoWon, data, raiseEventOptions, sendOptions);
         Debug.Log("Game Finished");
     }
+
+    
 
     public void StartWave()
     {
@@ -243,10 +245,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int GetTotalSpawnedEnemiesinWave()
     {
         int totalSpawnedEnemiesInWave = 0;
-        for (int i = 0; i < WaveDatas[WaveCount].NumberOfEnemies.Count; i++)
+        if(WaveCount < WaveDatas.Count)
         {
+            for (int i = 0; i < WaveDatas[WaveCount].NumberOfEnemies.Count; i++)
+            {
             totalSpawnedEnemiesInWave += WaveDatas[WaveCount].NumberOfEnemies[i];
+            }
         }
+        
         return totalSpawnedEnemiesInWave;
     }
 }

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 0}
-  Damage: 1
+  Damage: 2
   ProjectileSpeed: 1000
   Source: {fileID: 0}
 --- !u!114 &3494366875831871797
