@@ -103,18 +103,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void StartNextWave()
     {
-        if (SpawnedEnemies <= 0)
+        SpawnedEnemies = 0;
+        DestroyedEnemies = 0;
+        WaveCount++;
+        if (WaveCount < WaveDatas.Count)
         {
-            if (WaveCount < WaveDatas.Count)
-            {
-                WaveCount++;
-                StartWave();
-            }
-            else
-            {
-                Debug.Log("No More Waves");
-            }
+            
+            StartWave();
         }
+        else
+        {
+            Debug.Log("No More Waves");
+        }
+        
     }
 
     IEnumerator SpawnWave()
@@ -129,14 +130,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void AddEnemies()
     {
         SpawnedEnemies++;
-        int totalSpawnedEnemiesInWave = 0;
-        for (int i = 0; i < WaveDatas[WaveCount].NumberOfEnemies.Count; i++)
-        {
-            totalSpawnedEnemiesInWave += WaveDatas[WaveCount].NumberOfEnemies[i];
-        }
-        Debug.Log("Total Spawned Enemies in Wave: " + totalSpawnedEnemiesInWave);
         
-        if(SpawnedEnemies >= totalSpawnedEnemiesInWave)
+        if(SpawnedEnemies >= GetTotalSpawnedEnemiesinWave())
         {
             Debug.Log("All Spawned");
         }
@@ -147,13 +142,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //SpawnedEnemies--;
         DestroyedEnemies++;
-        int totalSpawnedEnemiesInWave = 0;
-        for (int i = 0; i < WaveDatas[WaveCount].NumberOfEnemies.Count; i++)
-        {
-            totalSpawnedEnemiesInWave += WaveDatas[WaveCount].NumberOfEnemies[i];
-        }
-        Debug.Log("Total Spawned Enemies in Wave: " + totalSpawnedEnemiesInWave);
-        if (DestroyedEnemies >= totalSpawnedEnemiesInWave)
+
+        if (DestroyedEnemies >= GetTotalSpawnedEnemiesinWave())
         {
             Debug.Log("Spawn next wave");
             StartNextWave();
@@ -175,5 +165,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject player; 
         PlayersInRoom.TryGetValue(actorNumber, out player);
         return player;
+    }
+
+    public int GetTotalSpawnedEnemiesinWave()
+    {
+        int totalSpawnedEnemiesInWave = 0;
+        for (int i = 0; i < WaveDatas[WaveCount].NumberOfEnemies.Count; i++)
+        {
+            totalSpawnedEnemiesInWave += WaveDatas[WaveCount].NumberOfEnemies[i];
+        }
+        return totalSpawnedEnemiesInWave;
     }
 }

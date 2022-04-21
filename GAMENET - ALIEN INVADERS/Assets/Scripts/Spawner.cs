@@ -22,12 +22,6 @@ public class Spawner : MonoBehaviour
        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SpawnEnemies()
     {
         SpawnCoroutine = StartCoroutine(Spawn());
@@ -38,7 +32,7 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(SpawnTimer);
         for(int i = 0; i < EnemyPrefabs.Count; i++)
         {
-            for (int j = 0; j < EnemyCountToSpawn.Count; j++)
+            for (int j = 0; j < EnemyCountToSpawn[i]; j++)
             {
                 GameObject enemy = PhotonNetwork.Instantiate(EnemyPrefabs[i].name, this.transform.position, this.transform.rotation);
                 GameManager.Instance.PhotonAddEnemies();

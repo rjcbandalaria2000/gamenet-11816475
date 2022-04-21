@@ -34,8 +34,8 @@ public class Projectile : MonoBehaviourPunCallbacks
             {
                 if (photonView.IsMine)
                 {
-                    PhotonNetwork.Destroy(this.gameObject);
-                    PhotonNetwork.Destroy(other.gameObject);
+                    Destroy(this.gameObject);
+                    Destroy(other.gameObject);
                 }
                
                 Debug.Log("Destroyed another projectile");
